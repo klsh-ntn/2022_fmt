@@ -1,0 +1,158 @@
+% arara: xelatex
+\documentclass[12pt]{article} % размер шрифта
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+
+\usepackage{array} % для столбцов фиксированной ширины
+
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{multicol} % текст в несколько колонок
+\usepackage{verbatim}
+
+\graphicspath{{images/}} % путь к картинкам
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering} % приказываем центрировать все sections
+
+\usepackage{amsmath, amssymb} % куча стандартных математических плюшек
+
+\usepackage[top=2cm, left=1.5cm, right=1.5cm, bottom=2cm]{geometry} % размер текста на странице
+
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+\usepackage{caption} % подписи к картинкам без плавающего окружения figure
+
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{empty}
+%\lhead{ФМТ}
+%\chead{}
+%\rhead{КЛШ-2019}
+%\lfoot{}
+%\cfoot{}
+%\rfoot{\thepage/\pageref{LastPage}}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет картина Последний день Помпеи}
+% команда \listoftodos — печатает все поставленные \todo'шки
+
+\usepackage{booktabs} % красивые таблицы
+% заповеди из документации:
+% 1. Не используйте вертикальные линии
+% 2. Не используйте двойные линии
+% 3. Единицы измерения помещайте в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+\usepackage{fontspec} % поддержка разных шрифтов
+\usepackage{polyglossia} % поддержка разных языков
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+\setmainfont{Linux Libertine O} % выбираем шрифт
+% можно также попробовать Helvetica, Arial, Cambria и т.Д.
+
+% чтобы использовать шрифт Linux Libertine на личном компе,
+% его надо предварительно скачать по ссылке
+% http://www.linuxlibertine.org/
+
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+% пояснение зачем нужно шаманство с \newfontfamily
+% http://tex.stackexchange.com/questions/91507/
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*} % списки уровня 2 будут буквами а) б) ...
+
+%% эконометрические и вероятностные сокращения
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand \hVar{\widehat{\Var}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+
+
+
+\begin{document}
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=0.25]{klshlogo.pdf} &
+\raisebox{1cm}{
+  {\Large\bf ФМТ, II тур}
+}
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item На двух чашках чашечных весов стоят сосуды содержащие по одному литру воды. 
+В одном сосуде плавает пробковый шарик плотности $700\text{ кг/м}^3$.
+На дне второго сосуда лежит металлический кубик плотностью $5600 \text{ кг/м}^3$.
+Объем кубика в 8 раз меньше объема шарика. 
+
+Какую разницу весов показывают чашечные весы?
+
+\item Три последовательных натуральных 2022-значных числа записаны подряд (встык) так, что получилось 6066-значное число~$N$. 
+На какое минимальное простое число всегда делится~$N$?
+
+\item Автобусы из Красноярска в \textit{Орбиту} первую половину пути прошли во скоростью~$v \text{ км/час}$, а вторую — с вдвое большей скоростью. 
+С какой средней скоростью автобусы шли из Красноярска в \textit{Орбиту}?
+
+
+\item  Дан квадрат $ABCD$; прямая, пересекающая две смежных стороны квадрата, делит его на две части, площади которых относятся как $1\div 2022$.
+Прямая делит одну из пересекаемых сторон в пропорции $1\div 2$. 
+
+В каком соотношении прямая делит другую пересекаемую сторону?
+
+\end{enumerate}
+
+\vfill
+
+\begin{center}
+  \begin{tabular}{cc}
+  \includegraphics[scale=0.25]{klshlogo.pdf} &
+  \raisebox{1cm}{
+    {\Large\bf ФМТ, II тур}
+  }
+  \end{tabular}
+  \end{center}
+  
+
+\begin{enumerate}
+  \item На двух чашках чашечных весов стоят сосуды содержащие по одному литру воды. 
+  В одном сосуде плавает пробковый шарик плотности $700 \text{ кг/м}^3$.
+  На дне второго сосуда лежит металлический кубик плотностью $5600 \text{ кг/м}^3$.
+  Объем кубика в 8 раз меньше объема шарика. 
+  
+  Какую разницу весов показывают чашечные весы?
+  
+  \item Три последовательных натуральных 2022-значных числа записаны подряд (встык) так, что получилось 6066-значное число~$N$. 
+  На какое минимальное простое число всегда делится~$N$?
+  
+  \item Автобусы из Красноярска в \textit{Орбиту} первую половину пути прошли во скоростью~$v \text{ км/час}$, а вторую — с вдвое большей скоростью. 
+  С какой средней скоростью автобусы шли из Красноярска в \textit{Орбиту}?
+  
+  
+  \item  Дан квадрат $ABCD$; прямая, пересекающая две смежных стороны квадрата, делит его на две части, площади которых относятся как $1\div 2022$.
+  Прямая делит одну из пересекаемых сторон в пропорции $1\div 2$. 
+  
+  В каком соотношении прямая делит другую пересекаемую сторону?
+  
+  \end{enumerate}
+  
+
+
+
+\end{document}
