@@ -1,0 +1,146 @@
+% arara: pdflatex
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage{tikzsymbols}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+\geometry{top=0.5cm}
+\geometry{bottom=0.5cm}
+\geometry{left=1cm}
+\geometry{right=1cm}
+\pagestyle{empty}
+
+\usepackage{booktabs}
+% заповеди из докупентации:
+% 1. Не используйте вертикальные линни
+% 2. Не используйте двойные линии
+% 3. Единицы измерения - в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+\newcommand{\myrotcell}[1]{\rotcell{\makebox[0pt][l]{#1}}}
+
+\newcommand{\protocol}[6]{
+\begin{minipage}{.2\textwidth}
+    \begin{center}
+    \includegraphics[width=0.48\textwidth]{klshlogo.pdf}
+    \end{center}
+\end{minipage}
+\begin{minipage}{.6\textwidth}
+    \begin{flushleft}
+    \textbf{Старший судья}: #5\\ 
+    \textbf{Судьи}: #6 \\ 
+    \textbf{Аудитория}: #2 \\ 
+    \end{flushleft}
+\end{minipage}
+\begin{minipage}{.2\textwidth}
+    \begin{flushleft}
+        {\Large\textbf{ФМТ тур-#1}} \\
+        \textbf{Команды}: #3 --- #4 
+    \end{flushleft}
+\end{minipage}
+
+
+\vspace*{0.2cm}
+\begin{tabular}{ | M{0.4cm} | M{2cm} | M{6.1cm} | M{0.8cm} | M{0.8cm} | M{0.5cm} | M{6.1cm} |}
+    \hline
+    \Smiley[1.6] & Время & Ответ и игрок #3 & балл #3 & балл #4 & \tiny{ $\times$ $\leftarrow$ $\rightarrow$} & Ответ и игрок #4 \\
+    \hline
+    \rotatebox{90}{Задача 1\hspace*{1cm}} & & & & & & \\ [2.1cm]
+    \hline
+    \rotatebox{90}{Задача 2\hspace*{1cm}} & & & & & & \\ [2.1cm]
+    \hline
+    \rotatebox{90}{Задача 3\hspace*{1cm}} & & & & & & \\ [2.1cm]
+    \hline
+    \rotatebox{90}{Задача 4\hspace*{1cm}} & & & & & & \\ [2.1cm]
+    \hline
+\end{tabular}
+
+\vspace*{0.25cm} 
+
+\begin{minipage}{.55\textwidth}
+
+%Условные значки: \\
+$\times$ задача снята \\
+$\rightarrow$ переход от #3 к #4 \\
+$\leftarrow$ переход от #4 к #3 \\
+
+\begin{tabular}{ | m{5cm} | M{1cm} | M{1cm} |}
+\hline
+\textbf{} & #3 & #4 \\
+\hline
+Вольные стрелки & & \\ [0.8cm]
+\hline
+Итог основного этапа & & \\ [0.8cm]
+\hline 
+\end{tabular}
+
+\vspace*{1cm}
+\textbf{Подписи команд:}\dotfill\\
+
+\vspace*{0.5cm}
+\textbf{Подписи судей:}\dotfill\\
+\end{minipage}
+\hspace*{0.5cm}
+\begin{minipage}{.45\textwidth}
+\begin{tabular}{ | m{5cm} | M{1cm} | M{1cm} |}
+\hline
+\textbf{Этап обмена ударами} & #3 & #4 \\
+\hline 
+Решение задачи соперника & & \\ [0.8cm]
+\hline
+Штраф за незнание & & \\ [0.8cm]
+\hline
+Дисциплинарный штраф & & \\ [0.8cm]
+\hline
+Красота обменной задачи & & \\ [0.8cm]
+\hline
+\textbf{Итоговый счёт} & & \\ [0.8cm]
+\hline
+\end{tabular}
+\end{minipage}
+}
+
+
+
+\setlength\parindent{0pt}
+\begin{document}
+
+
+
+\protocol{2}{1.1}{$\alpha$}{$\theta$}{Тая Житина}{Михаил Садовский, Даниил Снегур}
+\newpage
+\protocol{2}{1.2}{$\lambda$}{$\rho$}{Марк Прокушкин}{Андрей Мордасевич, Владимир Мезенцев}
+\newpage
+\protocol{2}{2.1}{$\sigma$}{$\delta$}{Боря Демешев}{Ярослав Федулов, Гринштейн Роберт}
+\newpage
+\protocol{2}{2.2}{$\beta$}{$\chi$}{Миша Трапезников}{Ваня Адо, Влада Синицина}
+\newpage
+\protocol{2}{3.1}{$\iota$}{$\nu$}{Антон Шейкин}{Игорь Скрипко, Ян Шапиро}
+\newpage
+\protocol{2}{3.2}{$\eta$}{$\xi$}{Вика Луковская}{Иван Трофимов, Егор Адиятов}
+\newpage
+\protocol{2}{ВК}{$\tau$}{$\gamma$}{Борис Дураков}{Артем Майдуров, Настя Андреева}
+\newpage
+\protocol{2}{беседка мед-1}{$\mu$}{$\psi$}{Полина Смирнова}{Вадим Тимергалеев, Ирина Поликарпова}
+\newpage
+\protocol{2}{беседка 1-2}{$\kappa$}{$\varphi$}{Максим Федянов}{Сергей Ламзин}
+\newpage
+\protocol{2}{беседка 2-3}{$\omega$}{$o$}{Лев Каминский}{Михаил Красков, Лиза Моисеева}
+\newpage
+\protocol{2}{столовая}{$\pi$}{$\varepsilon$}{Миша Шишацкий}{Лена Абакумова}
+
+
+\end{document}
+
+
