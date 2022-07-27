@@ -1,0 +1,267 @@
+% arara: xelatex
+\documentclass[11pt]{article} % размер шрифта
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+
+\usepackage{array} % для столбцов фиксированной ширины
+
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{multicol} % текст в несколько колонок
+\usepackage{verbatim}
+
+\graphicspath{{images/}} % путь к картинкам
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering} % приказываем центрировать все sections
+
+\usepackage{amsmath, amssymb} % куча стандартных математических плюшек
+
+\usepackage[top=2cm, left=1cm, right=1cm, bottom=1cm]{geometry} % размер текста на странице
+
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+\usepackage{caption} % подписи к картинкам без плавающего окружения figure
+
+\usepackage{circuitikz} % для рисовки электрических цепей
+
+\usepackage{physics} 
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{empty}
+%\lhead{ФМТ}
+%\chead{}
+%\rhead{КЛШ-2019}
+%\lfoot{}
+%\cfoot{}
+%\rfoot{\thepage/\pageref{LastPage}}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет картина Последний день Помпеи}
+% команда \listoftodos — печатает все поставленные \todo'шки
+
+\usepackage{booktabs} % красивые таблицы
+% заповеди из документации:
+% 1. Не используйте вертикальные линии
+% 2. Не используйте двойные линии
+% 3. Единицы измерения помещайте в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+\usepackage{fontspec} % поддержка разных шрифтов
+\usepackage{polyglossia} % поддержка разных языков
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+\setmainfont{Linux Libertine O} % выбираем шрифт
+% можно также попробовать Helvetica, Arial, Cambria и т.Д.
+
+% чтобы использовать шрифт Linux Libertine на личном компе,
+% его надо предварительно скачать по ссылке
+% http://www.linuxlibertine.org/
+
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+% пояснение зачем нужно шаманство с \newfontfamily
+% http://tex.stackexchange.com/questions/91507/
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*} % списки уровня 2 будут буквами а) б) ...
+
+%% эконометрические и вероятностные сокращения
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand \hVar{\widehat{\Var}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+
+
+% делаем короче интервал в списках
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+
+
+
+\newcommand{\putlogo}{
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=0.25]{klshlogo.pdf} &
+\raisebox{1cm}{
+    {\Large\bf ФМТ, III тур}
+}
+\end{tabular}
+\end{center}
+}
+
+
+\newcommand{\easymath}{
+На собрании судей ФМТ в ряд стоят 9 стульев, на них сидят 9 человек, из них — четыре Михаила. 
+Сколько существует способов рассадить Михаилов на стулья, чтобы максимальное количество судей могли загадать желание?
+Рассадки считаются различными, если хотя бы один Михаил сидит на другом стуле. 
+}
+\newcommand{\soleasymath}{
+
+
+}
+
+
+
+\newcommand{\hardmath}{
+В трапеции $ABCD$ с основаниями $AD > BC$ известны длины диагоналей $AC = d_1$, $BD = d_2$
+и высота $BH = h$.  Чему равна площадь трапеции?
+}
+\newcommand{\solhardmath}{
+
+
+}
+
+
+\newcommand{\veryhardmath}{
+В треугольнике $ABC$ известны углы $\angle BAC = 75^\circ$, $\angle BCA = 60^\circ$ и сторона $AC=\sqrt 2$.
+Проведены высоты $CE$ и $AT$. Чему равна длина отрезка $ET$?
+}
+\newcommand{\solveryhardmath}{
+
+
+}
+
+\newcommand{\easyphys}{
+Найдите сопротивление цепи:
+
+\begin{minipage}{0.5\textwidth}
+\begin{circuitikz}[european, scale=1]
+    \draw (-2,0) node[anchor=east] {B}
+    to[R, l=1 Ом, o-*] (0,0)
+    to[R=10 Ом, *-*] (0,2)
+    to[R=1 Ом, *-] (2,2)
+    to[R=8 Ом] (2,0)
+    to[R, a=1 Ом, -*] (0,0)
+    (0,2) to[R, a=1 Ом, *-o] (-2,2) node[anchor=east]{A};
+\end{circuitikz}
+\end{minipage}
+}
+
+\newcommand{\soleasyphys}{
+
+
+}
+
+\newcommand{\hardphys}{
+% 619 
+Из окошка, находящегося на высоте $h$, падает чьё-то сферическое тело. Когда тело пролетает мимо окна, находящегося на высоте $h/2$, 
+в тело попадает горизонтально летящяя рыбная котлета и застревает в центре тела. Котлета имеет массу в 10 раз меньше массы тела,
+её скорость в момент попадания равна $v$. Ускорение свободного падения равно $g$.
+
+С какой скоростью тело упадёт на землю?
+}
+\newcommand{\solhardphys}{
+
+
+}
+
+
+\newcommand{\veryhardphys}{
+% 620 Степанова
+Требушет массой 200 кг установлен у края плоской крыши высокой башни. Требушет выбрасывает стул массой 5 кг горизонтально. 
+Стул приземляется на расстоянии 300 метров от основания башни. Требушет, колеса которого вращаются без трения, также движется и падает на землю.
+
+На каком расстоянии от основания башни упадет требушет?
+}
+
+\newcommand{\solveryhardphys}{
+
+
+}
+
+
+\begin{document}
+
+TOP SECRET! Сдать главному судье после разбора!
+
+\begin{enumerate}
+\item \easymath
+\soleasymath
+\item \hardmath
+\solhardmath
+\item \easyphys
+\soleasyphys
+\item \hardphys
+\solhardphys
+\end{enumerate}
+
+Задачи для топ-3 столов:
+\begin{enumerate}[resume]
+\item \veryhardmath
+\solveryhardmath
+\item \veryhardphys
+\solveryhardphys
+\end{enumerate}
+TOP SECRET! Сдать главному судье после разбора!
+
+\newpage
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+\vfill
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+% \end{document} % если деления задач по столам нет
+
+\newpage
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \veryhardmath
+    \item \easyphys
+    \item \veryhardphys
+\end{enumerate}
+
+\vfill
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \veryhardmath
+    \item \easyphys
+    \item \veryhardphys
+\end{enumerate}
+
+
+\end{document}
+
+
+
+% ФМТ-финал
+
+% задача про кузнечника и соломинку, 615 задачник степановой
