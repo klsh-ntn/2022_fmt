@@ -112,21 +112,24 @@
 На собрании судей ФМТ в ряд стоят 9 стульев, на них сидят 9 человек, из них — четыре Михаила. 
 Сколько существует способов рассадить Михаилов на стулья, чтобы максимальное количество судей могли загадать желание?
 Рассадки считаются различными, если хотя бы один Михаил сидит на другом стуле. 
+Все Мишки разные, а загадать желание может только тот, у кого оба соседа — Мишки.
 }
 \newcommand{\soleasymath}{
-
-
+$3\cdot 4!= 3\cdot 24 = 72$
 }
 
 
 
 \newcommand{\hardmath}{
-В трапеции $ABCD$ с основаниями $AD > BC$ известны длины диагоналей $AC = d_1$, $BD = d_2$
-и высота $BH = h$.  Чему равна площадь трапеции?
+В трапеции $ABCD$ с основаниями $AD > BC$ высота $BH=h$ падает на сторону $AD$. 
+Известны также длины диагоналей, $AC = d_1$, $BD = d_2$.  Чему равна площадь трапеции?
 }
 \newcommand{\solhardmath}{
-
-
+Обозначим вторую высоту $CE$. По теореме Пифагора находим $AE^2 = d_1^2 - h^2$ и
+$DH^2 = d_2^2 - h^2$. Площадь равна 
+\[
+S = \frac{h}{2}AH + h\cdot HE + \frac{h}{2}ED = \frac{h}{2}(AE + DH) = \frac{h}{2}\left(\sqrt{d_1^2 - h^2} + \sqrt{d_2^2 - h^2} \right) 
+\]
 }
 
 
@@ -135,12 +138,20 @@
 Проведены высоты $CE$ и $AT$. Чему равна длина отрезка $ET$?
 }
 \newcommand{\solveryhardmath}{
+Угол $ABC = 45^\circ$. Четырехугольник $AETC$ вписан в окружность с диаметром $AC$, 
+так как прямые углы опираются на диаметр. 
 
+Сумма противоположных углов на вписанном четырехугольнике равна $180^\circ$. 
+Отсюда $\angle BET = 60^\circ$, $\angle BTE = 75^\circ$. Замечаем, что $\angle BEC$ — прямой.
 
+Треугольники $BET$ и $BCA$ подобны. $BE/BC=BT/BA = \cos 45^\circ = \frac{\sqrt{2}}{2} = ET/AC$.
+Отсюда $ET=1$.
+
+Обнаружено подобие, то +1 балл и задача снята.
 }
 
 \newcommand{\easyphys}{
-Найдите сопротивление цепи:
+Найди сопротивление цепи:
 
 \begin{minipage}{0.5\textwidth}
 \begin{circuitikz}[european, scale=1]
@@ -156,8 +167,8 @@
 }
 
 \newcommand{\soleasyphys}{
-
-
+Заменяем параллельные резисторы на один: $1/10 + 1/(1+8+1)= 1/5$. 
+Далее складываем последовательные $1+5+1 = 7$, Ответ: 7.
 }
 
 \newcommand{\hardphys}{
@@ -169,8 +180,9 @@
 С какой скоростью тело упадёт на землю?
 }
 \newcommand{\solhardphys}{
-
-
+Время вертикального падения с высоты $h$ равно $\sqrt{2h/g}$, а вертикальная составляющая скорости равна $v_y=\sqrt{2gh}$.
+Горизонтальная компонента скорости: $v_x = v/(10 + 1)$. Итоговая скорость по теореме Пифагора, $v = \sqrt{v_x^2 + v_y^2} = \sqrt{v^2/11 + 2gh}$.
+Если выписан закон сохранения импульса, то ставим 1 балл и снимаем.
 }
 
 
@@ -183,23 +195,30 @@
 }
 
 \newcommand{\solveryhardphys}{
+Обозначим массы требушета и стула $M$ и $m$, горизонтальные скорости — $V$ и $v$, расстояния падения от башни — $L$ и $\ell$. 
+Закон сохранения импульса: $MV = mv$. Скорость стула равна $v=\ell/t$ и скорость требушета равна $V=L/t$. 
+Отсюда $L/\ell = M/m$ и $L = 300 \cdot 5/200 = 7.5$. 
 
-
+Один балл ставим за оба ингридиента: закон сохранения импульса и одинаковое время.
 }
 
 
 \begin{document}
 
-TOP SECRET! Сдать главному судье после разбора!
+\textbf{TOP SECRET! Сдать задачи после разбора!}
 
 \begin{enumerate}
 \item \easymath
+
 \soleasymath
 \item \hardmath
+
 \solhardmath
 \item \easyphys
+
 \soleasyphys
 \item \hardphys
+
 \solhardphys
 \end{enumerate}
 
@@ -210,7 +229,45 @@ TOP SECRET! Сдать главному судье после разбора!
 \item \veryhardphys
 \solveryhardphys
 \end{enumerate}
-TOP SECRET! Сдать главному судье после разбора!
+
+\newpage
+
+\textbf{TOP SECRET! Судейский экземпляр обычных столов!}
+
+\begin{enumerate}
+    \item \easymath \\
+    
+    \soleasymath
+    \item \hardmath \\
+    
+    \solhardmath
+    \item \easyphys \\
+    
+    \soleasyphys
+    \item \hardphys \\
+    
+    \solhardphys
+\end{enumerate}
+
+\newpage
+
+\textbf{TOP SECRET! Судейский экземпляр top-3 столов!}
+
+\begin{enumerate}
+    \item \easymath \\
+    
+    \soleasymath
+    \item \veryhardmath \\
+    
+    \solveryhardmath
+    \item \easyphys \\
+    
+    \soleasyphys
+    \item \veryhardphys \\
+    
+    \solveryhardphys
+\end{enumerate}
+
 
 \newpage
 \putlogo
