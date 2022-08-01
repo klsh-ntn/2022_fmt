@@ -1,0 +1,341 @@
+% arara: xelatex
+\documentclass[11pt]{article} % размер шрифта
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+
+\usepackage{array} % для столбцов фиксированной ширины
+
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{multicol} % текст в несколько колонок
+\usepackage{verbatim}
+
+\graphicspath{{images/}} % путь к картинкам
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering} % приказываем центрировать все sections
+
+\usepackage{amsmath, amssymb} % куча стандартных математических плюшек
+
+\usepackage[top=2cm, left=1cm, right=1cm, bottom=1cm]{geometry} % размер текста на странице
+
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+\usepackage{caption} % подписи к картинкам без плавающего окружения figure
+
+\usepackage{circuitikz} % для рисовки электрических цепей
+
+\usepackage{physics} 
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{empty}
+%\lhead{ФМТ}
+%\chead{}
+%\rhead{КЛШ-2019}
+%\lfoot{}
+%\cfoot{}
+%\rfoot{\thepage/\pageref{LastPage}}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет картина Последний день Помпеи}
+% команда \listoftodos — печатает все поставленные \todo'шки
+
+\usepackage{booktabs} % красивые таблицы
+% заповеди из документации:
+% 1. Не используйте вертикальные линии
+% 2. Не используйте двойные линии
+% 3. Единицы измерения помещайте в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+\usepackage{fontspec} % поддержка разных шрифтов
+\usepackage{polyglossia} % поддержка разных языков
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+\setmainfont{Linux Libertine O} % выбираем шрифт
+% можно также попробовать Helvetica, Arial, Cambria и т.Д.
+
+% чтобы использовать шрифт Linux Libertine на личном компе,
+% его надо предварительно скачать по ссылке
+% http://www.linuxlibertine.org/
+
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+% пояснение зачем нужно шаманство с \newfontfamily
+% http://tex.stackexchange.com/questions/91507/
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*} % списки уровня 2 будут буквами а) б) ...
+
+%% эконометрические и вероятностные сокращения
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand \hVar{\widehat{\Var}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+
+
+% делаем короче интервал в списках
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+
+
+
+\newcommand{\putlogo}{
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=0.25]{klshlogo.pdf} &
+\raisebox{1cm}{
+    {\Large\bf ФМТ тур-5}
+}
+\end{tabular}
+\end{center}
+}
+
+
+\newcommand{\easymath}{
+Сначала зондер написал на доске число 3. 
+Затем зондер в уме прибавил к числу 2, поделил сумму на 2 и выписал полученное число на доску. 
+Затем зондер взял последнее выписанное число и повторил итерацию с ним. И так далее, снова и снова.
+
+Какое число зондер напишет на доске 11-м по счёту?
+}
+\newcommand{\soleasymath}{
+Замечаем, что $a_0=3$ и $a_{n+1} = 1 + a_n/2$, отсюда $\Delta_{n+1} = \Delta_n/2$.
+Находим $a_1 = 2.5$, $\Delta_1 = -0.5$. 
+
+Итого 
+\[
+a_{10} = a_0 + \Delta_1 + \ldots + \Delta_{10} = 3 - \frac{1}{2} - \ldots - \frac{1}{2^{10}} = 2 + \frac{1}{2^10}
+\]
+Один балл за понимание, что $\Delta_n$ падает в два раза. Также один балл за альтернативное решение, 
+где игрок экспериментально обнаруживает, что $a_n = 2 + 1/2^n$. 
+}
+
+
+
+\newcommand{\hardmath}{
+В трапеции $ABCD$ известны основания $BC=a$ и $AD=b$, причем $a < b$. 
+На стороне $AB$ отмечена точка $E$, на стороне $CD$ — точка $F$.
+Отрезок $EF$ параллелен основаниям. Площадь трапеции $EBCF$ равны $S_a$, а трапеции $AEFD$ равна $S_b$.
+    
+Чему равна длина $EF$?
+}
+\newcommand{\solhardmath}{
+Достроим трапецию до треугольника. Обозначим площадь верхнего треугольника как $S_t$.
+Находим квадрат коэффициента подобия $(S_t + S_a + S_b) / S_t = b^2/a^2$.
+
+Нужная нам сторона равна $ET = a \cdot \sqrt{(S_a + S_t)/ S_t} = \sqrt{a^2(1 + S_a/S_t)}$.
+Из первого уравнения $a^2 (S_a + S_b)/S_t = b^2 - a^2$.
+Ответ: $ET = \sqrt{a^2 + (b^2 - a^2) S_a/(S_a + S_b)} = \sqrt{(b^2 S_a + a^2 S_b)/(S_a + S_b)}$.
+
+За верное уравнение с отношением площадей равным квадрату коэффициента подобия — один балл.
+}
+
+
+\newcommand{\veryhardmath}{
+Внутри параболы друг на друге лежат три квадрата: маленький, средний и большой. 
+Центры квадратов лежат на оси симметрии параболы. 
+У каждого квадрата ровно две вершины лежат на параболе, 
+и ровно две стороны параллельны оси симметрии. 
+
+Площадь маленького квадрата равна 16, среднего — 36. 
+    
+Чему равна площадь большего квадрата? 
+}
+\newcommand{\solveryhardmath}{
+Параметризуем параболу $y=kx^2$. Координаты вершины малого квадрата на параболе $(2, 4k)$.
+Координаты вершины среднего квадрата на параболе $(3, 9k)$. 
+Из рисунка получаем уравнение $9k = 4k + 4$. Отсюда $k=0.8$.
+Координата вершины крупного квадрата $(a, 0.8a^2)$ при этом $0.8a^2 = 9\cdot 0.8 + 6 = 13.2$.
+Искомая площадь равна $4a^2 = 4\cdot 13.2/0.8 = 66$.
+
+За нахождение формулы параболы $y=0.8x^2$ — один балл. 
+}
+
+\newcommand{\easyphys}{
+На расстоянии $L = 10$ м от стены лежит футбольный мяч. 
+Юнит Адо-Решетнёв под «раз-два» бежит к мячу с постоянной скоростью $u = 10$ м/с в направлении перендикулярном плоскости стены. 
+Добегая до мяча, юнит наносит удар и придаёт мячу горизонтальную скорость $v = 30$ м/c относительно пола. 
+После удара юнит продолжает движение с прежней скоростью. Столкновение мяча со стеной абсолютно упругое.
+    
+Через сколько секунд после удара юнит снова встретится с мячом?
+}
+
+\newcommand{\soleasyphys}{
+Общее расстояние пройденное мячом и юнитом равно $2L$, а суммарная скорость $u+v$, отсюда $t = 2L/(u+v) = 20/40 = 0.5$.
+
+Снимаем один балл при арифметической ошибке.
+}
+
+\newcommand{\hardphys}{
+Из однородной проволки сопротивлением $5$ Ом сделано кольцо. 
+К проволоке присоединены две клеммы так, что сопротивление полученной цепи равняется $0.8$ Ом.
+    
+В каком соотношения точки присоединения клемм делят кольцо?
+}
+\newcommand{\solhardphys}{
+Поделим кольцо на участки сопротивлением $x$ и $R - x$. Решаем уравнение $1/r = 1/x + 1/(R - x)$.
+Получаем квадратное уравнение $x^2 - Rx + Rr = 0$ и решение $x = \frac{1}{2} \left( R \pm \sqrt{R^2 - 4rR}  \right)$.
+Отношение равно $\frac{R + \sqrt{R^2 - 4rR}}{R - \sqrt{R^2 - 4rR}}$. В числах $8:2=4:1$.
+    
+За выписанное уравнение $1/r = 1/x + 1/(R - x)$ ставим один балл.
+}
+
+
+\newcommand{\veryhardphys}{
+Два арбуза одинаковой массы $m$ связаны нитью, перекинутой через неподвижный блок. 
+Школьница команды $\lambda$ массы $M$, подпрыгнув,
+хватается за один из арбузов. 
+    
+Какой будет сила давления нити на блок?}
+
+\newcommand{\solveryhardphys}{
+Ускорение обозначим школьницы с арбузом $a$, получаем систему:
+\[
+    \begin{cases}
+    (M + m) a = (M + m)g - T \\
+    ma = T - mg \\
+    \end{cases}
+\]
+Находим $a = Mg/(2m + M)$ и $T = 2mg(M + m)/(2m + M)$.
+Отсюда $N = 2T = 4gm(M + m)/(2m + M)$.
+
+За выписанную систему ставим один балл. 
+}
+
+
+\begin{document}
+
+\textbf{TOP SECRET! Сдать задачи после разбора!}
+
+\begin{enumerate}
+\item \easymath
+
+\soleasymath
+\item \hardmath
+
+\solhardmath
+\item \easyphys
+
+\soleasyphys
+\item \hardphys
+
+\solhardphys
+\end{enumerate}
+
+Задачи для топ-3 столов:
+\begin{enumerate}[resume]
+\item \veryhardmath
+\solveryhardmath
+\item \veryhardphys
+\solveryhardphys
+\end{enumerate}
+
+\newpage
+
+\textbf{TOP SECRET! Судейский экземпляр обычных столов!}
+
+\begin{enumerate}
+    \item \easymath 
+    
+    \soleasymath
+    \item \hardmath 
+    
+    \solhardmath
+    \item \easyphys 
+    
+    \soleasyphys
+    \item \hardphys 
+    
+    \solhardphys
+\end{enumerate}
+
+\newpage
+
+\textbf{TOP SECRET! Судейский экземпляр top-3 столов!}
+
+\begin{enumerate}
+    \item \easymath 
+    
+    \soleasymath
+    \item \veryhardmath 
+    
+    \solveryhardmath
+    \item \hardphys 
+    
+    \solhardphys
+    \item \veryhardphys 
+    
+    \solveryhardphys
+\end{enumerate}
+
+
+\newpage
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+\vfill
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+% \end{document} % если деления задач по столам нет
+
+\newpage
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \veryhardmath
+    \item \hardphys
+    \item \veryhardphys
+\end{enumerate}
+
+\vfill
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \veryhardmath
+    \item \hardphys
+    \item \veryhardphys
+\end{enumerate}
+
+
+\end{document}
+
+
+
+% ФМТ-финал
+
+% задача про кузнечника и соломинку, 615 задачник степановой
