@@ -1,0 +1,298 @@
+% arara: xelatex
+\documentclass[11pt]{article} % размер шрифта
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+
+\usepackage{array} % для столбцов фиксированной ширины
+
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{multicol} % текст в несколько колонок
+\usepackage{verbatim}
+
+\graphicspath{{images/}} % путь к картинкам
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering} % приказываем центрировать все sections
+
+\usepackage{amsmath, amssymb} % куча стандартных математических плюшек
+
+\usepackage[top=2cm, left=1cm, right=1cm, bottom=1cm]{geometry} % размер текста на странице
+
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+\usepackage{caption} % подписи к картинкам без плавающего окружения figure
+
+\usepackage{circuitikz} % для рисовки электрических цепей
+
+\usepackage{physics} 
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{empty}
+%\lhead{ФМТ}
+%\chead{}
+%\rhead{КЛШ-2019}
+%\lfoot{}
+%\cfoot{}
+%\rfoot{\thepage/\pageref{LastPage}}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет картина Последний день Помпеи}
+% команда \listoftodos — печатает все поставленные \todo'шки
+
+\usepackage{booktabs} % красивые таблицы
+% заповеди из документации:
+% 1. Не используйте вертикальные линии
+% 2. Не используйте двойные линии
+% 3. Единицы измерения помещайте в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+\usepackage{fontspec} % поддержка разных шрифтов
+\usepackage{polyglossia} % поддержка разных языков
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+\setmainfont{Linux Libertine O} % выбираем шрифт
+% можно также попробовать Helvetica, Arial, Cambria и т.Д.
+
+% чтобы использовать шрифт Linux Libertine на личном компе,
+% его надо предварительно скачать по ссылке
+% http://www.linuxlibertine.org/
+
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+% пояснение зачем нужно шаманство с \newfontfamily
+% http://tex.stackexchange.com/questions/91507/
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*} % списки уровня 2 будут буквами а) б) ...
+
+%% эконометрические и вероятностные сокращения
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand \hVar{\widehat{\Var}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+
+
+% делаем короче интервал в списках
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+
+
+
+\newcommand{\putlogo}{
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=0.25]{klshlogo.pdf} &
+\raisebox{1cm}{
+    {\Large\bf ФМТ свалка}
+}
+\end{tabular}
+\end{center}
+}
+
+
+\newcommand{\protocol}[1]{
+\putlogo
+
+{\Large Команда: #1 \hspace*{2cm} Судья:
+}
+\vspace*{1cm}
+
+\begin{tabular}{ | p{2cm} | p{4cm} | p{4cm} |}
+    \hline
+    Задача & Время заявки & Балл \\
+    \hline
+    1 & &  \\ [2.1cm]
+    \hline
+    2 & &  \\ [2.1cm]
+    \hline
+    3 & &  \\ [2.1cm]
+    \hline
+    4 & &  \\ [2.1cm]
+    \hline
+\end{tabular}
+\vspace*{0.5cm}
+
+Первым делом фиксируйте время заявки задачи. Каждую задачу можно заявить только один раз. 
+После получения решения можно попросить команду дать письменный дополнительный комментарий к решению.
+
+
+\begin{itemize}
+    \item если задача решена на 0 баллов или не заявлена к окончанию тура, команда получает 1200 штрафных секунд;
+    \item если задача решена на 1 балл, команда получает штрафных секунд столько, сколько секунд прошло с момента начала свалки до момента заявки задачи;
+    \item если задача решена на 2 балла, команда получает половину от числа секунд, прошедших с
+    момента начала свалки до момента заявки задачи.    
+\end{itemize}
+
+
+
+}
+
+
+\newcommand{\easymath}{
+После клш зондер Даня забыл пин-код из пяти цифр на свой телефон. 
+Он только помнит, что в пин-коде была двойка, за которой была тройка, а также была тройка, за которой была семёрка.
+
+Какое наименьшее количество пин-кодов нужно перебрать Дане, чтобы наверняка разблокировать телефон?
+}
+\newcommand{\soleasymath}{
+Возможны три варианта:
+\begin{enumerate}
+    \item Код содержит комбинацию 237. Её можно расположить в номере тремя способами: **237, *237*, 237**. В каждом из них каждую из оставшихся цифр можно выбрать 10 способами. Всего получаем  $3 \cdot 10^2 = 300$ номеров.
+    \item Код содержит комбинации 23 и 37, причём 23 расположена левее. Оставшуюся цифру можно выбрать 10 способами и вставить её на одно из трёх мест. Всего 30 номеров.
+    \item Код содержит комбинации 23 и 37, причём 23 расположена правее. Еще 30 номеров.
+\end{enumerate}
+Осталось заметить, что номера 23723, 23237, 23737 и 37237 мы сосчитали дважды.
+
+Ответ 356 номеров. За близкие ответы с аргументацией ставим 1 балл: от 351 до 361 включительно. 
+}
+
+
+
+\newcommand{\hardmath}{
+Под каким углом видна хорда, равная радиусу, из точек окружности?
+}
+\newcommand{\solhardmath}{
+Помимо $30^\circ$ подходит ещё и $150^\circ$. 
+
+Один балл за одно из решений. Два балла за оба решения.
+}
+
+
+\newcommand{\easyphys}{
+Рыбную котлету массой $m$~кг сбросили с балкона столовой высотой $h$~м, придав ей скорость $v$~вертикально вниз. 
+
+Какой импульс имела котлета непосредственно перед ударом о землю? 
+}
+\newcommand{\soleasyphys}{
+Обозначим $u$ — скорость перед ударом о землю. 
+Закон сохранения энергии $mgh + \frac{mv^2}{2} = \frac{mu^2}{2}$.
+Отсюда $u = \sqrt{2gh + v^2}$ и импульс равен $m\sqrt{2gh + v^2}$.
+
+Если выписана формула для закона сохранения энергии — 1 балл. 
+}
+
+\newcommand{\hardphys}{
+Зондер, несущий рыбную котлету из столовой на биохим, 
+двигается равноускоренно с начальной скоростью $1$~м/с и конечной скоростью $7$~м/c. 
+    
+Чему равна скорость зондера в середине пути?
+}
+\newcommand{\solhardphys}{
+Обозначим $v_0$, $v_a$, $v_b$ — начальную скорость, скорость в середине пути и финальную скорость.
+
+$v_b^2 - v_0^2 = 2a L$, $v_a^2 - v_0^2 = 2aL/2=aL$, Отсюда $v_a = \sqrt{0.5 v_0^2 + 0.5 v_b^2} = 5$.
+
+Можно узнать задачу про трапеции и тогда ответ $\sqrt{\frac{1}{2}1^2  + \frac{1}{2} 7^2} = 5$.
+}
+
+
+
+
+\begin{document}
+
+\textbf{TOP SECRET! Сдать задачи после разбора!}
+
+\begin{enumerate}
+\item \easymath
+
+\soleasymath
+\item \hardmath
+
+\solhardmath
+\item \easyphys
+
+\soleasyphys
+\item \hardphys
+
+\solhardphys
+\end{enumerate}
+
+\newpage % школьный экземпляр обычных столов
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+\vfill
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+
+\newpage
+\protocol{$\alpha$}
+\newpage
+\protocol{$\beta$}
+\newpage
+\protocol{$\gamma$}
+\newpage
+\protocol{$\delta$}
+\newpage
+\protocol{$\varepsilon$}
+\newpage
+\protocol{$\eta$}
+\newpage
+\protocol{$\theta$}
+\newpage
+\protocol{$\iota$}
+\newpage
+\protocol{$\kappa$}
+\newpage
+\protocol{$\lambda$}
+\newpage
+\protocol{$\mu$}
+\newpage
+\protocol{$\nu$}
+\newpage
+\protocol{$\xi$}
+\newpage
+\protocol{$o$}
+\newpage
+\protocol{$\pi$}
+\newpage
+\protocol{$\rho$}
+\newpage
+\protocol{$\sigma$}
+\newpage
+\protocol{$\tau$}
+\newpage
+\protocol{$\phi$}
+\newpage
+\protocol{$\chi$}
+\newpage
+\protocol{$\psi$}
+\newpage
+\protocol{$\omega$}
+
+
+
+\end{document}
+

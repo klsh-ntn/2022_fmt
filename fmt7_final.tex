@@ -1,0 +1,247 @@
+% arara: xelatex
+\documentclass[11pt]{article} % размер шрифта
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+
+\usepackage{array} % для столбцов фиксированной ширины
+
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{multicol} % текст в несколько колонок
+\usepackage{verbatim}
+
+\graphicspath{{images/}} % путь к картинкам
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering} % приказываем центрировать все sections
+
+\usepackage{amsmath, amssymb} % куча стандартных математических плюшек
+
+\usepackage[top=2cm, left=1cm, right=1cm, bottom=1cm]{geometry} % размер текста на странице
+
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+\usepackage{caption} % подписи к картинкам без плавающего окружения figure
+
+\usepackage{circuitikz} % для рисовки электрических цепей
+
+\usepackage{physics} 
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{empty}
+%\lhead{ФМТ}
+%\chead{}
+%\rhead{КЛШ-2019}
+%\lfoot{}
+%\cfoot{}
+%\rfoot{\thepage/\pageref{LastPage}}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет картина Последний день Помпеи}
+% команда \listoftodos — печатает все поставленные \todo'шки
+
+\usepackage{booktabs} % красивые таблицы
+% заповеди из документации:
+% 1. Не используйте вертикальные линии
+% 2. Не используйте двойные линии
+% 3. Единицы измерения помещайте в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+\usepackage{fontspec} % поддержка разных шрифтов
+\usepackage{polyglossia} % поддержка разных языков
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+\setmainfont{Linux Libertine O} % выбираем шрифт
+% можно также попробовать Helvetica, Arial, Cambria и т.Д.
+
+% чтобы использовать шрифт Linux Libertine на личном компе,
+% его надо предварительно скачать по ссылке
+% http://www.linuxlibertine.org/
+
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+% пояснение зачем нужно шаманство с \newfontfamily
+% http://tex.stackexchange.com/questions/91507/
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*} % списки уровня 2 будут буквами а) б) ...
+
+%% эконометрические и вероятностные сокращения
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\newcommand \hVar{\widehat{\Var}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
+
+
+% делаем короче интервал в списках
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+
+
+
+\newcommand{\putlogo}{
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=0.25]{klshlogo.pdf} &
+\raisebox{1cm}{
+    {\Large\bf ФМТ финал}
+}
+\end{tabular}
+\end{center}
+}
+
+
+\newcommand{\easymath}{
+Летнешкольники в количестве 99 человек встали в ряд.
+Первый сказал, что обожает рыбные котлеты. А начиная со второго все говорили одно и то же утверждение
+«Среди сделанных ранее заявлений более 70\% ложных!»
+    
+Сколько ложных заявлений сделали летнешкольники?    
+}
+\newcommand{\soleasymath}{
+Первое заявление могло быть истинным или ложным, второе будет антонимичным по верности к первому. 
+Далее все заявления определяются однозначно. Тяжким трудом выписываем их, обнаруживаем период 10. 
+Итого 30 истинных заявлений и 69 ложных.
+
+Первые десять утверждений (первый соврал): 01001 00100
+
+Первые десять утверждений (первый правдив): 10001 00100
+
+Далее в обоих вариантах идет: 01001 00100 циклом.
+
+Ответ: 69
+
+Один балл за рассмотрение одного варианта. 
+Один балл за наличие двух вариантов и аргумент, что начиная с третьего они совпадают.
+}
+
+
+
+\newcommand{\hardmath}{
+Углы треугольника $ABC$ равны $\angle A =\pi /3$, $\angle B = \pi/4$. 
+Продолжение высот треугольника $ABC$ пересекает описанную около него окружность в точках $D$, $E$ и $F$.
+
+Найди отношение площади треугольника $ABC$ к площади треугольника $DEF$.
+}
+\newcommand{\solhardmath}{
+Обозначим $R$ — радиус окружности, 
+\[
+\begin{cases}
+    S_{ABC} = 2R^2 \sin A \sin B \sin C \\
+    S_{DEF} = 2R^2 \sin D \sin E \sin F \\
+\end{cases}
+\]
+Замечаем, что $\angle E = \pi - 2 \angle B$, $\angle D = \pi - 2 \angle A$, $\angle F = \pi - 2 \angle C$.
+Отсюда 
+\[
+\frac{S_{ABC}}{S_{DEF}} = \frac{\sin \pi /3 \sin \pi /4 \sin 5\pi/12}{\sin 2\pi /3 \sin \pi /2 \sin 5\pi/6} = \sqrt 2\sin (5\pi/ 12)
+\]
+Ответ: $(1 + \sqrt 3)/2$.
+
+Если не доказана формула площади, то 2:0. Если формула не доказана и оппонент указал на отсутствие доказательства, 
+то ставим 2:1.
+}
+
+
+\newcommand{\easyphys}{ % легкая для финала )
+Антон Шейкин обустраивает вечерний клуб для юбилейного 45-го сезона, но у него не хватает свечей. 
+Антон раздобыл одну свечку и расположил её посередине между двумя зеркалами, 
+стоящими под углом $30^\circ$ друг к другу.
+        
+Сколько изображений свечки увидит посетитель вечернего клуба?
+}
+
+\newcommand{\soleasyphys}{
+$360^\circ / n - 1 = 12 - 1 = 11$
+
+Если обсчитался и написал 12, ставим 1 балл. 
+}
+
+\newcommand{\hardphys}{
+Требушет, стоящий на плацу, выстреливает арбуз так, чтобы он приземлялся на крыльце столовой. 
+В момент выстрела на арбуз верхом абсолютно неупруго садится школьница из команды $\lambda$. 
+Масса школьницы в 5 раз больше массы арбуза. 
+    
+Какую часть пути до крыльца столовой школьнице придется идти пешком?    
+}
+\newcommand{\solhardphys}{
+Обозначим $L_0$ — расстояние от требушета до столовой, $L_1$ — расстояние, пролетаемое арбузом со школьницей,
+ массу арбуза $m$, массу школьницы $M$, $v_0$ и $v_1$ — начальные скорости.
+\[
+\begin{cases}
+    mv_0 = (M + m)v_1     \\
+    L_0 = \frac{v_0^2}{g}\sin 2\alpha \\
+    L_1 = \frac{v_1^2}{g}\sin 2\alpha \\
+\end{cases}
+\]
+Отсюда $(L_0 - L_1)/L_0 = 1 - (m/(m + M))^2 = 35/36$. 
+}
+
+
+
+\begin{document}
+
+\textbf{TOP SECRET! Сдать задачи после разбора!}
+
+\begin{enumerate}
+\item \easymath
+
+\soleasymath
+\item \hardmath
+
+\solhardmath
+\item \easyphys
+
+\soleasyphys
+\item \hardphys
+
+\solhardphys
+\end{enumerate}
+
+
+\newpage % школьный экземпляр обычных столов (обычных для финала :)
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+\vfill
+
+\putlogo
+
+\begin{enumerate}
+    \item \easymath
+    \item \hardmath
+    \item \easyphys
+    \item \hardphys
+\end{enumerate}
+
+\end{document} % если деления задач по столам нет
+
+
+
+
+
+
+
