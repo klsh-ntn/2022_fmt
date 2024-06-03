@@ -23,3 +23,15 @@ sorted = group_by(res_clean2unif, team) %>%
 
 export(sorted, file = '~/Documents/klsh-ntn/fmt_2022/fmt_2022_main_results.xlsx')
 
+
+
+path = '~/Documents/klsh-ntn/fmt_2022/fmt_2022_results.xlsx'
+
+res = import(path, sheet = 2)
+res
+glimpse(res)
+
+
+bombers = group_by(res, bomber, team) %>% summarise(points = sum(points)) %>%
+  arrange(-points)
+bombers
